@@ -1,15 +1,18 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const router = useRouter();
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ email, password }); // Pass login data to parent component
+    // onSubmit({ email, password });
     setEmail(""); // Clear form after submit
     setPassword("");
+    router.push("/dashboard");
+    localStorage.setItem("user", "loggedin");
   };
 
   return (
@@ -68,7 +71,12 @@ function Login() {
       </button>
       <span>
         Don't have an account?{" "}
-        <span className=" text-primaryorange cursor-pointer">Signup.</span>
+        <span
+          onClick={() => router.push("/signup")}
+          className=" text-primaryorange cursor-pointer"
+        >
+          Signup.
+        </span>
       </span>
     </form>
   );
